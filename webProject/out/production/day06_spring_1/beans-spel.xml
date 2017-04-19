@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用spEL表达式，为属性符字面值-->
+    <bean id="car" class="spring.beans.Car">
+        <property name="color" value="#{'白色'}"/>
+        <property name="brand" value="#{20}"/>
+        <!--引用静态属性-->
+        <property name="price" value="#{T(java.lang.Math).PI * 80}"/>
+    </bean>
+
+    <bean id="person" class="Person">
+        <property name="age" value="#{car.brand}"/>
+        <!--三目运算-->
+        <property name="name" value="#{car.price >300?'富帅':'穷逼'}"/>
+        <property name="car" value="#{car}"/>
+    </bean>
+</beans>

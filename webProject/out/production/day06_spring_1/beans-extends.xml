@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--默认创建的bean都是单例模式-->
+
+    <!--加上abstract="true"表示该bean不能被实例化，只是作为一个模板存在-->
+    <bean id="car" class="spring.beans.Car"
+          p:color="蓝色" p:brand="4" p:price="2222"/>
+
+    <!--配置直接的继承-->
+    <bean id="car1" p:price="11111" parent="car"/>
+
+    <!--depends-on 表示person依赖于car1这个bean，在person创建之前，必须先创建好car1-->
+    <bean id="person" class="Person"
+          p:name="Tony" p:age="19" depends-on="car1"/>
+</beans>

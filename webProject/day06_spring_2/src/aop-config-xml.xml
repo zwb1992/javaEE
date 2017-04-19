@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--配置普通的bean-->
+    <bean id="arithmeticCalculatorImpl" class="com.spring.aop.xml.ArithmeticCalculatorImpl"/>
+
+    <!--配置切面bean-->
+    <bean id="loggingAspect" class="com.spring.aop.xml.LoggingAspect"/>
+    <bean id="validateAspect" class="com.spring.aop.xml.ValidateAspect"/>
+
+    <!--配置切点-->
+    <aop:config>
+        <!--配置切点表达式-->
+        <aop:pointcut id="pointCut" expression="execution(public int com.spring.aop.xml.ArithmeticCalculator.*(..))"/>
+        <!--配置切面以及通知-->
+        <aop:aspect ref="loggingAspect" order="2">
+            <aop:around method="aroundMethod" pointcut-ref="pointCut"/>
+        </aop:aspect>
+
+        <aop:aspect ref="validateAspect" order="1">
+            <aop:before method="beforeMethod" pointcut-ref="pointCut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

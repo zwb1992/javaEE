@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--bean的生命周期方法-->
+
+    <bean id="lifeCycle" class="spring.beans.lifecycle.LifeCycle"
+          init-method="init" destroy-method="destroy" p:name="#{'haha'}">
+    </bean>
+    <!--配置bean的后置处理器 可以在bean初始化init-method之前与之后进行操作-->
+    <bean class="spring.beans.lifecycle.MyBeanPostProcessor"/>
+</beans>

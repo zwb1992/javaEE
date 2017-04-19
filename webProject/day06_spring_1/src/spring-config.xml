@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="helloWorld" class="spring.beans.HelloWorld">
+        <property name="name" value="spring"/>
+    </bean>
+
+    <bean id="car" class="spring.beans.Car">
+        <!--
+        <constructor-arg value="4" type="int"/>
+        <constructor-arg value="23600" type="double"/>
+        <constructor-arg value="红色" type="java.lang.String"/>
+        -->
+    </bean>
+
+    <bean id="car1" class="spring.beans.Car">
+        <constructor-arg type="int">
+            <value>4</value>
+        </constructor-arg>
+        <constructor-arg value="23600" type="double"/>
+        <!--如果输入的字符串包含特殊字符，需要如下处理-->
+        <constructor-arg type="java.lang.String">
+            <value><![CDATA[《@#红色￥%……]]></value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="person" class="spring.beans.Person">
+        <property name="age" value="20"/>
+        <property name="name" value="Tom"/>
+        <!--
+        <property name="car" ref="car1"/>
+        -->
+        <!--使用内部bean的方式-->
+        <property name="car">
+            <bean class="spring.beans.Car">
+                <constructor-arg value="4" type="int"/>
+                <constructor-arg value="23600" type="double"/>
+                <constructor-arg value="红色" type="java.lang.String"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="person1" class="spring.beans.Person">
+        <property name="age" value="20"/>
+        <property name="name" value="Tom"/>
+        <property name="car" ref="car"/>
+        <!--为级联属性赋值,前面所引用的对象的值也会相应的改变-->
+        <property name="car.color" value="黑色"/>
+    </bean>
+
+    <!--使用p 命名空间为属性赋值-->
+    <bean id="person2" class="spring.beans.Person"
+          p:age="33" p:name="Jerry" p:car-ref="car"/>
+</beans>

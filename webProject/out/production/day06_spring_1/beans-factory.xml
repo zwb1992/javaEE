@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--通过静态工厂方法配置bean,配置的是bean的实例而不是工厂的实例-->
+
+    <bean id="car" class="spring.beans.factory.StaticBeanFactory"
+          factory-method="getCar">
+        <constructor-arg value="audi"/>
+    </bean>
+
+    <bean id="instanceFactory" class="spring.beans.factory.InstanceFactory"/>
+    <!--通过实例化工厂方法配置bean-->
+    <bean id="car1" factory-bean="instanceFactory" factory-method="getCar">
+        <constructor-arg value="baoma"/>
+    </bean>
+
+    <!--通过factoryBean配置 bean-->
+    <bean id="car2" class="spring.beans.factory.MyFactoryBean">
+        <property name="name" value="BMW"/>
+    </bean>
+
+</beans>

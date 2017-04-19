@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--使用注解来配置bean，配置spring IOC 容器要扫描的包-->
+    <!--
+    <context:component-scan base-package="spring.beans.annotation"/>
+    -->
+
+    <!--resource-pattern过滤纸扫描指定的类-->
+    <!--
+    <context:component-scan base-package="spring.beans.annotation"
+    resource-pattern="controller/*.class"/>
+    -->
+
+    <!--exclude-filter 不包含 type="annotation" 指定是哪一种注解-->
+    <!--include-filter 包含 type="annotation" 指定是哪一种注解-->
+    <!--use-default-filters 不使用默认的过滤器-->
+    <context:component-scan base-package="spring.beans.annotation"
+    use-default-filters="true">
+        <!--
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        -->
+        <!--
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        -->
+        <!--type="assignable" 指定的是哪一个类-->
+        <!--
+        <context:exclude-filter type="assignable" expression="spring.beans.annotation.repository.UserRepository"/>
+        -->
+    </context:component-scan>
+</beans>

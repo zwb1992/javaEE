@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!--配置IOC容器的配置文件地址-->
+    <context-param>
+        <param-name>configLocation</param-name>
+        <param-value>applicationContext.xml</param-value>
+    </context-param>
+
+    <!--启动IOC容器的监听器-->
+    <listener>
+        <listener-class>com.spring.listener.ApplicationListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>com.spring.servlets.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+</web-app>

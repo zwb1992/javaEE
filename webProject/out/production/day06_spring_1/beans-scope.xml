@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--默认创建的bean都是单例模式-->
+
+    <!--scope:默认为singleTon 初始化IOC容器的时候就会创建好对象
+        prototype：每次获取的时候都会创建一个新的实例
+    -->
+    <bean id="car" class="spring.beans.Car" scope="prototype"
+          p:color="蓝色" p:brand="4" p:price="2222"/>
+
+    <!--配置直接的继承-->
+    <bean id="car1" p:price="11111" parent="car"/>
+
+</beans>
