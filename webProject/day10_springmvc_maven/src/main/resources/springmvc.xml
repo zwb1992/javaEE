@@ -11,10 +11,35 @@
     <context:annotation-config/>
 
     <!-- 扩充了注解驱动，可以将请求参数绑定到控制器参数 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven conversion-service="myDateFormatter"/>
 
     <!-- 静态资源处理， css， js， imgs -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <mvc:interceptors>
+        <!--拦截规则，表示除http://localhost:8080/*/login的action，其他的都拦截-->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/*/login"/>
+            <bean class="com.imooc.mvcdemo.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean id="myDateFormatter" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.imooc.mvcdemo.utils.MyDateFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="myDateConverter" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.imooc.mvcdemo.utils.MyDateConverter"/>
+            </set>
+        </property>
+    </bean>
 
 
     <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">

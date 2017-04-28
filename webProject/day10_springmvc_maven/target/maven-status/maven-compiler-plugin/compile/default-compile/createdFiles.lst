@@ -1,4 +1,11 @@
+com/imooc/mvcdemo/model/TestSet.class
+com/imooc/mvcdemo/model/Test1.class
+com/imooc/mvcdemo/service/impl/CourseServiceImpl.class
+com/imooc/mvcdemo/model/Test2.class
+com/imooc/mvcdemo/utils/MyDateFormatter.class
+com/imooc/mvcdemo/controller/TestController.class
 com/imooc/mvcdemo/service/CourseService.class
+com/imooc/mvcdemo/model/TestMap.class
 com/imooc/mvcdemo/controller/HelloMvcController.class
 com/imooc/mvcdemo/controller/CourseController.class
-com/imooc/mvcdemo/service/impl/CourseServiceImpl.class
+com/imooc/mvcdemo/model/TestList.class

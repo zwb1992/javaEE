@@ -14,6 +14,8 @@
       <module fileurl="file://$PROJECT_DIR$/day08_spring_web/day08_spring_web.iml" filepath="$PROJECT_DIR$/day08_spring_web/day08_spring_web.iml" />
       <module fileurl="file://$PROJECT_DIR$/day09_spring_mvc/day09_spring_mvc.iml" filepath="$PROJECT_DIR$/day09_spring_mvc/day09_spring_mvc.iml" />
       <module fileurl="file://$PROJECT_DIR$/day10_springmvc_maven/day10_springmvc_maven.iml" filepath="$PROJECT_DIR$/day10_springmvc_maven/day10_springmvc_maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day11_spring_transaction/day11_spring_transaction.iml" filepath="$PROJECT_DIR$/day11_spring_transaction/day11_spring_transaction.iml" />
+      <module fileurl="file://$PROJECT_DIR$/day12_mybatis_demo1/day12_mybatis_demo1.iml" filepath="$PROJECT_DIR$/day12_mybatis_demo1/day12_mybatis_demo1.iml" />
       <module fileurl="file://$PROJECT_DIR$/webProject.iml" filepath="$PROJECT_DIR$/webProject.iml" />
     </modules>
   </component>

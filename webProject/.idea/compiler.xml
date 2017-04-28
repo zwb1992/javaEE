@@ -7,10 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="day10_springmvc_maven" />
+        <module name="day11_spring_transaction" />
+        <module name="day12_mybatis_demo1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="day10_springmvc_maven" target="1.5" />
+      <module name="day11_spring_transaction" target="1.5" />
+      <module name="day12_mybatis_demo1" target="1.5" />
       <module name="Test" target="1.5" />
       <module name="Test01" target="1.5" />
     </bytecodeTargetLevel>

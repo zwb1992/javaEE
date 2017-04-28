@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+<configuration>
+    
+    <properties resource="dbcp.properties"/>
+
+    <!--settings 改变运行时状态的设置-->
+    <settings>
+        <!--开启驼峰式命名法，数据库字段：LAST_NAME，bean的字段:lastName,这个时候会自动映射成功-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!--typeAliases为类取别名，别名不区分大小写-->
+    <typeAliases>
+        <!--
+            1，type：要取别名的类的全路径，默认别名为类名小些
+            2，alias：要起的别名
+        -->
+       <!-- <typeAlias type="com.zwb.mybatis.bean.Account" alias="account"/>-->
+
+        <!--
+            批量起别名
+            1,name:要起别名的包
+            2，如果在子包下有两个类名相同，需要在类中使用@Alias（""） 为这个类单独取别名
+         -->
+        <package name="com.zwb.mybatis.bean" />
+    </typeAliases>
+
+    <!--
+        environments:环境变量配置，mybatis可以允许多个环境配置 default 默认使用哪种环境
+        environment:每一个环境必须包含事务管理器以及数据源
+            transactionManager：JDBC|MANAGED
+            dataSource：POOLED|UNPOOLED|JNDI
+    -->
+    <environments default="development">
+        <environment id="test">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driverClassName}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driverClassName}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--支持多数据库厂商-->
+    <databaseIdProvider type="DB_VENDOR">
+        <!--为不同的数据库厂商起别名,在mapper.xml里面配置-->
+        <property name="MySQL" value="mysql"/>
+        <property name="ORACLE" value="oracle"/>
+    </databaseIdProvider>
+
+    <!--
+        mappers：将我们写好的sql映射语句注册到全局文件当中
+        resource：引用类路径下
+        url：引用磁盘或者网络资源
+        class：引用接口，如：com.zwb.mybatis.dao.AccountMapper 这个时候，
+        必须把AccountMapper.xml放在与接口同一级目录，或者使用注解的方式写sql语句
+    -->
+    <mappers>
+        <mapper resource="AccountMapper.xml"/>
+        <mapper class="com.zwb.mybatis.dao.AccountMapperAnnotation"/>
+
+        <!--批量注册sql映射-->
+        <!--<package name="com.zwb.mybatis.dao"/>-->
+    </mappers>
+</configuration>

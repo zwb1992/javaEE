@@ -40,11 +40,14 @@
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/day10_springmvc_maven" />
+    <file type="web" url="file://$PROJECT_DIR$/day11_spring_transaction" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/day10_springmvc_maven/pom.xml" />
+        <option value="$PROJECT_DIR$/day11_spring_transaction/pom.xml" />
+        <option value="$PROJECT_DIR$/day12_mybatis_demo1/pom.xml" />
       </list>
     </option>
   </component>
