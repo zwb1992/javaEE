@@ -13,6 +13,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Unit test for simple App.
@@ -109,6 +111,45 @@ public class AppTest
 //            System.out.println("flag--->"+flag);
 //            accountMapper.deleteAccountById(5);
             session.commit();//一定得提交
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis05() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Account account = accountMapper.getAccountByIdAndName(1,"aaa");
+            System.out.println("account--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis06() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Account account = accountMapper.getAccountByIdAndName1(1,"aaa");
+            System.out.println("account--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis07() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Map<String,Object> map = new HashMap();
+            map.put("id",1);
+            map.put("name","aaa");
+            Account account = accountMapper.getAccountByMap(map);
+            System.out.println("account--->"+account.toString());
         } finally {
             session.close();
         }

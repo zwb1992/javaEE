@@ -1,6 +1,9 @@
 package com.zwb.mybatis.dao;
 
 import com.zwb.mybatis.bean.Account;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Map;
 
 /**
  * Created by zwb on 17/4/27.
@@ -14,6 +17,14 @@ public interface AccountMapper {
      * @return
      */
     Account getAccountById(Integer id);
+
+
+    Account getAccountByMap(Map<String,Object> map);
+
+
+    Account getAccountByIdAndName(Integer id,String name);
+
+    Account getAccountByIdAndName1(@Param("id") Integer id, @Param("name") String name);
 
     long addAccount(Account account);
 

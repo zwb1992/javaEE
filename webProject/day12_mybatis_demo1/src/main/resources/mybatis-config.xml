@@ -62,7 +62,7 @@
     <databaseIdProvider type="DB_VENDOR">
         <!--为不同的数据库厂商起别名,在mapper.xml里面配置-->
         <property name="MySQL" value="mysql"/>
-        <property name="ORACLE" value="oracle"/>
+        <property name="Oracle" value="oracle"/>
     </databaseIdProvider>
 
     <!--

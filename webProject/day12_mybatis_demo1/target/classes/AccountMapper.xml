@@ -8,14 +8,28 @@
         select * from Account where id = #{id}
     </select>
 
+    <select id="getAccountByIdAndName" resultType="account" databaseId="mysql">
+        select * from Account where id = #{param1} AND name = #{param2}
+    </select>
+
+    <!--Account getAccountByMap(Map<String,Object> map);-->
+    <select id="getAccountByMap" resultType="account" databaseId="mysql">
+        select * from Account where id = #{id} AND name = #{name}
+    </select>
+
+    <select id="getAccountByIdAndName1" resultType="account" databaseId="mysql">
+    select * from Account where id = #{id} AND name = #{name}
+</select>
+
     <!--void addAccount(Account account);-->
     <!--
+        mysql:支持自增
         parameterType：参数类型可以省略
         mybatis:支持自增属性，调用statement.getGenreatedKeys（）获取自增属性的值
         useGeneratedKeys=true:使用自增属性的key
         keyProperty：指定对应的主键属性，mybatis获取到主键属性值之后，把它赋值给bean的属性
     -->
-    <insert id="addAccount"
+    <insert id="addAccount" parameterType="com.zwb.mybatis.bean.Account"
             useGeneratedKeys="true" keyProperty="id">
         INSERT INTO account(name,money) VALUES (#{name},#{money})
     </insert>

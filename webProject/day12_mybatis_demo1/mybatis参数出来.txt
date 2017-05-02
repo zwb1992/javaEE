@@ -1,0 +1,35 @@
+1，单个参数，mybatis不做处理
+    #{参数名}：这种方式取出参数值
+
+2，多个参数来说,mybatis会做特殊处理
+它会封装成一个map，key为param1...paramN，或者根据索引来取值，1，0
+#{}就是从map中取值
+Account getAccountByIdAndName(Integer id,String name);
+#{id},#{name}
+Caused by: org.apache.ibatis.binding.BindingException:
+Parameter 'id' not found. Available parameters are [arg1, arg0, param1, param2]
+
+正确的取值方式应该是#{param1}，#{param2}
+
+3，命名参数，明确指定参数封装后map的key----》在参数上使用@Param（"id"）
+这个时候取值为#{id}
+
+4,如果多个参数，正好是数据模型(bean)中的参数，推荐传递POJO
+    #{参数名}
+
+5，如果传递的参数不是我们数据模型(bean)中的参数，我们可以直接传递一个map
+       #{key} 取出key对应的value
+
+=================================思考================================================
+Account getAccountByIdAndName(@Param("id") Integer id,String name);
+     id = #{param1}或者id= #{id}   name = #{param2}
+
+Account getAccountByIdAndName(Integer id,@Param("account") Account account);
+     id = #{param1}  name = #{param2.name}或者name=#{account.name}
+
+###特别注意，如果是Collection（list，set）或者是数组类型，mybatis会特殊处理，把list或者数据封装进入map中
+key为collection 如果是list，key为：list  数组的key为：array
+
+Account getAccountByIdAndName(List<Integer> ids);
+取出第一个id
+     id = #{list[0]}

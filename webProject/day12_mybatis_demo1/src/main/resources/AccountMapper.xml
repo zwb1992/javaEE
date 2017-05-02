@@ -8,8 +8,22 @@
         select * from Account where id = #{id}
     </select>
 
+    <select id="getAccountByIdAndName" resultType="account" databaseId="mysql">
+        select * from Account where id = #{param1} AND name = #{param2}
+    </select>
+
+    <!--Account getAccountByMap(Map<String,Object> map);-->
+    <select id="getAccountByMap" resultType="account" databaseId="mysql">
+        select * from Account where id = #{id} AND name = #{name}
+    </select>
+
+    <select id="getAccountByIdAndName1" resultType="account" databaseId="mysql">
+    select * from Account where id = #{id} AND name = #{name}
+</select>
+
     <!--void addAccount(Account account);-->
     <!--
+        mysql:支持自增
         parameterType：参数类型可以省略
         mybatis:支持自增属性，调用statement.getGenreatedKeys（）获取自增属性的值
         useGeneratedKeys=true:使用自增属性的key
