@@ -44,7 +44,7 @@
                     column="id" fetchType="lazy"/>
     </resultMap>
     <!--Department getDeptByStep(Integer id);-->
-    <select id="getDeptByStep" resultMap="DeptStep1">
+    <select id="getDeptByStep" resultMap="DeptStep1git">
         SELECT * FROM department WHERE id = #{id}
     </select>
 
