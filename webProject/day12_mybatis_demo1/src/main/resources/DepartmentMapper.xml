@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zwb.mybatis.dao.DepartmentDao">
+
+    <resultMap id="dept" type="com.zwb.mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="dept_name"/>
+    </resultMap>
+
+    <!--Department getDept(Integer id);-->
+    <select id="getDept" resultMap="dept">
+        SELECT * FROM department WHERE id = #{id}
+    </select>
+
+    <!--查询一个部门的同时，把该部门下的所有员工查出来，是一个集合-->
+    <resultMap id="myDept" type="com.zwb.mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="dept_name"/>
+        <!--
+            collection:关联一个集合对象
+            property：属性
+            ofType：集合中的对象类型
+         -->
+        <collection property="accounts" ofType="com.zwb.mybatis.bean.Account">
+            <id column="a_id" property="id"/>
+            <result column="a_name" property="name"/>
+            <result column="a_money" property="money"/>
+        </collection>
+    </resultMap>
+
+    <!--Department getDeptAndAccounts(Integer id);-->
+    <select id="getDeptAndAccounts" resultMap="myDept">
+ select d.id id,d.dept_name dept_name,a.id a_id,a.name a_name,a.money a_money,a.dept_id dept_id
+ from department d  left join account a on a.dept_id=d.id where d.id=#{id};
+    </select>
+
+
+    <resultMap id="DeptStep" type="com.zwb.mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="dept_name"/>
+        <collection property="accounts" select="com.zwb.mybatis.dao.AccountMapper.getAccount2ListById"
+                    column="id" fetchType="lazy"/>
+    </resultMap>
+    <!--Department getDeptByStep(Integer id);-->
+    <select id="getDeptByStep" resultMap="DeptStep1">
+        SELECT * FROM department WHERE id = #{id}
+    </select>
+
+
+    <!--
+        扩展：
+        如果要传多个参数，可以使用map的方式传值
+        column="{dept_id=id,name=a_name}"
+        fetchType="lazy" 启动延迟加载
+        lazy：延迟加载
+        eager：立即加载
+    -->
+
+
+    <resultMap id="DeptStep1" type="com.zwb.mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="dept_name"/>
+        <!--
+            discriminator：鉴别器，通过鉴别某一列的值，动态改变封装规则
+            javaType：某一类的java类型
+            column：某一列
+
+            当是开发部的时候，查询员工信息，否则不查询
+        -->
+        <discriminator javaType="string" column="dept_name">
+            <case value="开发部" resultType="com.zwb.mybatis.bean.Department">
+                <collection property="accounts" select="com.zwb.mybatis.dao.AccountMapper.getAccount2ListById"
+                            column="id" fetchType="lazy"/>
+            </case>
+            <case value="测试部" resultType="com.zwb.mybatis.bean.Department">
+
+            </case>
+        </discriminator>
+    </resultMap>
+</mapper>
+

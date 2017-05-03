@@ -33,3 +33,39 @@ key为collection 如果是list，key为：list  数组的key为：array
 Account getAccountByIdAndName(List<Integer> ids);
 取出第一个id
      id = #{list[0]}
+
+==============================封装map的过程=====================================================
+public Object getNamedParams(Object[] args) {
+        int paramCount = this.names.size();
+        if(args != null && paramCount != 0) {
+            if(!this.hasParamAnnotation && paramCount == 1) {
+                return args[((Integer)this.names.firstKey()).intValue()];
+            } else {
+                ParamMap param = new ParamMap();
+                int i = 0;
+
+                for(Iterator var5 = this.names.entrySet().iterator(); var5.hasNext(); ++i) {
+                    Entry entry = (Entry)var5.next();
+                    param.put(entry.getValue(), args[((Integer)entry.getKey()).intValue()]);
+                    String genericParamName = "param" + String.valueOf(i + 1);
+                    if(!this.names.containsValue(genericParamName)) {
+                        param.put(genericParamName, args[((Integer)entry.getKey()).intValue()]);
+                    }
+                }
+
+                return param;
+            }
+        } else {
+            return null;
+        }
+    }
+=================================#与$取值方式的区别====================================================
+#{} 可以取map或者POJO的值
+${} 可以取map或者POJO的值
+
+    #：是以预编译的形式给sql语句赋值，preparedStatement；防止sql注入
+    $:是直接给sql语句赋值，会有安全性问题
+
+        注：大部分情况下，使用#{}取值
+        源生jdbc不支持占位符的情况下，分表，排序，按年份拆分表
+        特殊情况下：需要动态设置表名的时候，不能使用#{}，只能用${}

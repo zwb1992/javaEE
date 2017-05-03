@@ -12,6 +12,10 @@
     <settings>
         <!--开启驼峰式命名法，数据库字段：LAST_NAME，bean的字段:lastName,这个时候会自动映射成功-->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!--通过配置以下两个属性，是的级联查询的时候，级联属性在使用的时候才会被查出来-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
 
     <!--typeAliases为类取别名，别名不区分大小写-->
@@ -74,6 +78,7 @@
     -->
     <mappers>
         <mapper resource="AccountMapper.xml"/>
+        <mapper resource="DepartmentMapper.xml"/>
         <mapper class="com.zwb.mybatis.dao.AccountMapperAnnotation"/>
 
         <!--批量注册sql映射-->

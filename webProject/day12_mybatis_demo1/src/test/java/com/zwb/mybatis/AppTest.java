@@ -1,8 +1,10 @@
 package com.zwb.mybatis;
 
 import com.zwb.mybatis.bean.Account;
+import com.zwb.mybatis.bean.Department;
 import com.zwb.mybatis.dao.AccountMapper;
 import com.zwb.mybatis.dao.AccountMapperAnnotation;
+import com.zwb.mybatis.dao.DepartmentDao;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -14,6 +16,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -150,6 +153,102 @@ public class AppTest
             map.put("name","aaa");
             Account account = accountMapper.getAccountByMap(map);
             System.out.println("account--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis08() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            List<Account> accounts = accountMapper.getAccount2List();
+            System.out.println("account  list--->"+accounts.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis09() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Map<String,Object> map = accountMapper.getAccount2Map(1);
+            System.out.println("account  map--->"+map.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis10() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Map<Integer,Account> map = accountMapper.getAccount2Map2();
+            System.out.println("Map<Integer,Account>--->"+map.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis11() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Account account = accountMapper.getAccountAndDept(1);
+            System.out.println("getAccountAndDept--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis12() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapper accountMapper = session.getMapper(AccountMapper.class);
+            Account account = accountMapper.getAccountByStep(2);
+            System.out.println("getAccountByStep--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis13() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
+            Department account = departmentDao.getDeptByStep(2);
+            System.out.println("getAccountByStep--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis14() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
+            Department account = departmentDao.getDeptAndAccounts(1);
+            System.out.println("getDeptAndAccounts--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis15() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
+            Department account = departmentDao.getDeptByStep(1);
+            System.out.println("getDeptByStep--->"+account.toString());
         } finally {
             session.close();
         }

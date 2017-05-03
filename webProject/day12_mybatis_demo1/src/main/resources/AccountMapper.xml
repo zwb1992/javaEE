@@ -3,6 +3,39 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zwb.mybatis.dao.AccountMapper">
+
+    <!--
+        自定义映射规则
+        type：所要映射的bean
+        id：方便引用起的名字
+    -->
+    <resultMap id="myAccount" type="com.zwb.mybatis.bean.Account">
+        <!--
+            指定主键的映射规则，使用id可以优化查询，其他的使用result
+        -->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+
+
+    <!--List<Account> getAccount2List();-->
+    <!--返回类型为list是，resultType：应该写list中元素的类型-->
+    <select id="getAccount2List" resultType="account">
+        select * from Account
+    </select>
+
+    <!--Map<String,Object> getAccount2Map(Integer id);-->
+    <!--返回一个map对象是，resultType="map"-->
+    <select id="getAccount2Map" resultType="map" databaseId="mysql">
+        select * from Account where id = #{id}
+    </select>
+
+    <!--Map<Integer,Account> getAccount2Map2(Integer id);;-->
+    <!--返回一个map对象是，resultType="map"-->
+    <select id="getAccount2Map2" resultType="account" databaseId="mysql">
+        select * from Account
+    </select>
+
     <!--databaseId 标记这个sql语句用于那个数据库厂商的-->
     <select id="getAccountById" resultType="account" databaseId="mysql">
         select * from Account where id = #{id}
@@ -43,5 +76,75 @@
     <delete id="deleteAccountById">
         DELETE FROM account where id = #{id}
     </delete>
+
+    <!--
+        场景1：account属于某一个部门department,查询account的时候，把department也查出来
+        Account getAccountAndDept(Integer id);
+    -->
+    <!--使用级联属性封装javabean对象-->
+    <resultMap id="myAccountAndDept" type="com.zwb.mybatis.bean.Account">
+        <!--
+            指定主键的映射规则，使用id可以优化查询，其他的使用result
+        -->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="money" property="money"/>
+        <result column="dept_name" property="department.dept_name"/>
+        <result column="d_id" property="department.id"/>
+    </resultMap>
+
+    <resultMap id="myAccountAndDept2" type="com.zwb.mybatis.bean.Account">
+        <!--
+            指定主键的映射规则，使用id可以优化查询，其他的使用result
+        -->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="money" property="money"/>
+        <!--
+            association 关联的对象
+            property：关联对象的属性名称
+            javaType：关联的对象类型
+        -->
+        <association property="department" javaType="com.zwb.mybatis.bean.Department">
+            <id column="d_id" property="id"/>
+            <result column="dept_name" property="dept_name"/>
+        </association>
+    </resultMap>
+
+    <select id="getAccountAndDept" resultMap="myAccountAndDept">
+        select a.id id,a.name name,a.money money,a.dept_id dept_id ,
+d.dept_name dept_name,d.id d_id
+ from account a,department d where a.dept_id=d.id and a.id=#{id}
+    </select>
+
+
+
+    <resultMap id="myAccountStep" type="com.zwb.mybatis.bean.Account">
+        <!--
+            指定主键的映射规则，使用id可以优化查询，其他的使用result
+        -->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="money" property="money"/>
+        <!--
+            association 关联的对象
+            select：调用查询的方法
+            column：指定将那个字段作为参数传递
+        -->
+        <association property="department" select="com.zwb.mybatis.dao.DepartmentDao.getDept"
+        column="dept_id">
+        </association>
+    </resultMap>
+
+    <!--Account getAccountByStep(Integer id);-->
+    <select id="getAccountByStep" resultMap="myAccountStep">
+        select * from Account where id = #{id}
+    </select>
+
+
+    <!--List<Account> getAccount2ListById(Integer id);-->
+    <select id="getAccount2ListById" resultType="account">
+        select * from Account where dept_id = #{id}
+    </select>
 </mapper>
 

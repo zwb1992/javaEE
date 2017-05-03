@@ -10,6 +10,7 @@ public class Account {
     private int id;
     private String name;
     private double money;
+    private Department department;
 
     public int getId() {
         return id;
@@ -35,12 +36,21 @@ public class Account {
         this.money = money;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", money=" + money +
+                ", department=" + department +
                 '}';
     }
 
