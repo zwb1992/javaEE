@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zwb.mybatis.dao.AccountMapperDynamicSql">
+
+
+    <!--
+        需求：根据查询条件动态改变sql，有那个字段，就拼接哪个字段
+    -->
+    <!--List<Account> getAccountsByConditionIf(Account account);-->
+    <select id="getAccountsByConditionIf" resultType="account">
+        SELECT * FROM Account
+        <where>
+        <if test="id!=0">
+            id = #{id}
+        </if>
+        <if test="name != null and name !=''">
+            and name = #{name}
+        </if>
+        </where>
+    </select>
+</mapper>
+

@@ -79,6 +79,7 @@
     <mappers>
         <mapper resource="AccountMapper.xml"/>
         <mapper resource="DepartmentMapper.xml"/>
+        <mapper resource="AccountMapperDynamicSql.xml"/>
         <mapper class="com.zwb.mybatis.dao.AccountMapperAnnotation"/>
 
         <!--批量注册sql映射-->

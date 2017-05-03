@@ -4,6 +4,7 @@ import com.zwb.mybatis.bean.Account;
 import com.zwb.mybatis.bean.Department;
 import com.zwb.mybatis.dao.AccountMapper;
 import com.zwb.mybatis.dao.AccountMapperAnnotation;
+import com.zwb.mybatis.dao.AccountMapperDynamicSql;
 import com.zwb.mybatis.dao.DepartmentDao;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -22,9 +23,7 @@ import java.util.Map;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
+public class AppTest extends TestCase {
     /**
      * Create the test case
      *
@@ -249,6 +248,19 @@ public class AppTest
             DepartmentDao departmentDao = session.getMapper(DepartmentDao.class);
             Department account = departmentDao.getDeptByStep(1);
             System.out.println("getDeptByStep--->"+account.toString());
+        } finally {
+            session.close();
+        }
+    }
+
+    @org.junit.Test
+    public void testMybatis16() throws IOException{
+        SqlSession session = getSqlSession();
+        try {
+            AccountMapperDynamicSql accountMapperDynamicSql = session.getMapper(AccountMapperDynamicSql.class);
+            Account account = new Account(1,"aaa",300);
+            List<Account> accounts = accountMapperDynamicSql.getAccountsByConditionIf(account);
+            System.out.println("accountMapperDynamicSql--->"+accounts.toString());
         } finally {
             session.close();
         }
